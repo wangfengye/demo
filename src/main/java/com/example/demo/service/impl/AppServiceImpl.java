@@ -1,29 +1,29 @@
-package com.example.demo.api;
+package com.example.demo.service.impl;
 
 import com.example.demo.bean.dataObject.App;
 import com.example.demo.bean.dataObject.AppVersion;
-import com.example.demo.bean.responseBean.ResponseDefault;
 import com.example.demo.bean.vo.AppVo;
 import com.example.demo.dao.AppDao;
 import com.example.demo.dao.AppVersionDao;
+import com.example.demo.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lenovo on 2017/6/28.
+ * Created by lenovo on 2017/10/13.
  */
-@RestController
-public class AppApi {
+@Service
+public class AppServiceImpl implements AppService {
     @Autowired
     private AppVersionDao appVersionDao;
     @Autowired
     private AppDao appDao;
 
-    @RequestMapping(value = "/app")
-    public ResponseDefault getAllApk() {
+    @Override
+    public List<App> findAll() {
         List<App> apps = appDao.findAll();
         List<AppVo> appVos = new ArrayList<>();
         for (App app : apps) {
@@ -33,24 +33,16 @@ public class AppApi {
             appVo.setApkUrl(appVersion.getApkUrl());
             appVos.add(appVo);
         }
-        ResponseDefault res = new ResponseDefault(appVos);
-        return res;
+        return apps;
     }
 
-    @RequestMapping("app/{name}")
-    ResponseDefault getByName(@PathVariable String name) {
-        App app = appDao.findByName(name);
-        ResponseDefault result = new ResponseDefault(app);
-        return result;
+    @Override
+    public App findByName(String name) {
+        return appDao.findByName(name);
     }
 
-    @RequestMapping(value = "/app", method = RequestMethod.POST)
-    ResponseDefault addApk(@RequestParam String name,
-                           @RequestParam(required = false) String version,
-                           @RequestParam int code,
-                           @RequestParam String apkUrl,
-                           @RequestParam String desc,
-                           @RequestParam String updateDate) {
+    @Override
+    public Boolean saveApp(String name, String version, Integer code, String apkUrl, String desc, String updateDate) {
         App app = appDao.findByName(name);
         if (app == null) {
             App saveApp = new App();
@@ -60,7 +52,7 @@ public class AppApi {
             app = appDao.findByName(name);
         } else {
             if (code <= app.getLastCode())
-                return new ResponseDefault("已存在此版本");
+                return false;
             app.setLastCode(code);
             appDao.save(app);
         }
@@ -73,8 +65,7 @@ public class AppApi {
         appVersion.setDesc(desc);
         appVersion.setUpdateDate(updateDate);
         appVersionDao.save(appVersion);
-        ResponseDefault result = new ResponseDefault("success");
-        return result;
+        return true;
     }
 
 

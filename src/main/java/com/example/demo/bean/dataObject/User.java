@@ -1,12 +1,11 @@
 package com.example.demo.bean.dataObject;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by lenovo on 2017/9/15.
+ * 用户表
  */
 @Entity
 public class User {
@@ -16,6 +15,14 @@ public class User {
     @Column(unique = true)
     private String account;
     private String password;
+    private String salt;//加密的盐
+    /**
+     * 用户状态: 0:未认证 ,1:正常使用,2:锁定
+     */
+    private byte state;
+    @ManyToMany(fetch = FetchType.EAGER)//立即从数据库中进行加载数据
+    @JoinTable(name = "SysUserRole",joinColumns = {@JoinColumn(name="uid")},inverseJoinColumns ={@JoinColumn(name = "roleId") })
+    private List<SysRole> roleList;
 
     public String getAccount() {
         return account;
@@ -31,6 +38,38 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<SysRole> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<SysRole> roleList) {
+        this.roleList = roleList;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public byte getState() {
+        return state;
+    }
+
+    public void setState(byte state) {
+        this.state = state;
     }
 
     public User() {
