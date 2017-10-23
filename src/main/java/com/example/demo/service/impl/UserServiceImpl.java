@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.bean.dataObject.User;
+import com.example.demo.bean.database.User;
 import com.example.demo.dao.UserDao;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

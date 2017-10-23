@@ -1,6 +1,6 @@
 package com.example.demo.dao;
 
-import com.example.demo.bean.dataObject.App;
+import com.example.demo.bean.database.App;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

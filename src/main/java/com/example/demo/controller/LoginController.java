@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.bean.responseBean.ResponseDefault;
+import com.example.demo.bean.response.ResponseDefault;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.web.bind.annotation.PostMapping;

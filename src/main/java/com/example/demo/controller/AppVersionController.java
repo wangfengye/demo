@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.bean.dataObject.AppVersion;
+import com.example.demo.bean.database.AppVersion;
 import com.example.demo.service.AppVersionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.bean.dataObject.App;
-import com.example.demo.bean.dataObject.AppVersion;
+import com.example.demo.bean.database.App;
+import com.example.demo.bean.database.AppVersion;
 import com.example.demo.bean.vo.AppVo;
 import com.example.demo.dao.AppDao;
 import com.example.demo.dao.AppVersionDao;
@@ -23,7 +23,7 @@ public class AppServiceImpl implements AppService {
     private AppDao appDao;
 
     @Override
-    public List<App> findAll() {
+    public List<AppVo> findAll() {
         List<App> apps = appDao.findAll();
         List<AppVo> appVos = new ArrayList<>();
         for (App app : apps) {
@@ -33,7 +33,7 @@ public class AppServiceImpl implements AppService {
             appVo.setApkUrl(appVersion.getApkUrl());
             appVos.add(appVo);
         }
-        return apps;
+        return appVos;
     }
 
     @Override
@@ -51,8 +51,8 @@ public class AppServiceImpl implements AppService {
             appDao.save(saveApp);
             app = appDao.findByName(name);
         } else {
-            if (code <= app.getLastCode())
-                return false;
+            if (code <= app.getLastCode()){
+                return false;}
             app.setLastCode(code);
             appDao.save(app);
         }

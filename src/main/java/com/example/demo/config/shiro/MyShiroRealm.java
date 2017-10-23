@@ -1,8 +1,8 @@
 package com.example.demo.config.shiro;
 
-import com.example.demo.bean.dataObject.SysPermission;
-import com.example.demo.bean.dataObject.SysRole;
-import com.example.demo.bean.dataObject.User;
+import com.example.demo.bean.database.SysPermission;
+import com.example.demo.bean.database.SysRole;
+import com.example.demo.bean.database.User;
 import com.example.demo.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -16,6 +16,7 @@ import java.util.*;
 
 /**
  * Created by lenovo on 2017/10/12.
+ * @author feng
  */
 public class MyShiroRealm extends AuthorizingRealm {
     @Autowired
@@ -58,7 +59,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authToken;
         String account = token.getUsername();
         String password = String.valueOf(token.getPassword());
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(10);
         User user = userService.findByAccountAndPassword(account, password);
         if (user == null) {
             throw new AccountException("帐号或密码不正确！");

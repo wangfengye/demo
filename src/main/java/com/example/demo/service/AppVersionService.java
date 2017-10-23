@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.bean.dataObject.AppVersion;
+import com.example.demo.bean.database.AppVersion;
 
 import java.util.List;
 

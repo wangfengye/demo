@@ -1,6 +1,6 @@
 package com.example.demo.bean.vo;
 
-import com.example.demo.bean.dataObject.App;
+import com.example.demo.bean.database.App;
 
 /**
  * Created by lenovo on 2017/9/11.

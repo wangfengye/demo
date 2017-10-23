@@ -1,6 +1,6 @@
 package com.example.demo.dao;
 
-import com.example.demo.bean.dataObject.AppVersion;
+import com.example.demo.bean.database.AppVersion;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

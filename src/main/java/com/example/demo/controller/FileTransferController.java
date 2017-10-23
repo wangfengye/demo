@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.bean.responseBean.ResponseDefault;
+import com.example.demo.bean.response.ResponseDefault;
 import com.example.demo.utils.FileUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,10 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/file")
 public class FileTransferController {
+    @Value("${web.upload-path}")
+    private String mPath = "E:/accept/";
+
     @ResponseBody
     @PostMapping("/upload")
     ResponseDefault<String> upload(@RequestParam("file") MultipartFile file) {
-        String path = FileUtil.upload(file, null);
+        String path = FileUtil.upload(file, mPath);
         ResponseDefault<String> responseDefault = new ResponseDefault<>(path);
         if (path == null || path.length() == 0) {
             responseDefault.setCode(400);

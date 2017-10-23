@@ -6,3 +6,8 @@
   validate ：每次加载hibernate时，验证创建数据库表结构，只会和数据库中的表进行比较，不会创建新表，但是会插入新值。 5、 none : 什么都不做。
 
   * war包 命令 mvn clean package  -Dmaven.test.skip=true
+  
+  
+  ### LOG
+  #### 10/23
+  * 完善上传功能

@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.bean.dataObject.App;
-import com.example.demo.bean.responseBean.ResponseDefault;
+import com.example.demo.bean.database.App;
+import com.example.demo.bean.response.ResponseDefault;
+import com.example.demo.bean.vo.AppVo;
 import com.example.demo.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +18,8 @@ public class AppController {
     @Autowired
     AppService appService;
 
-    @RequestMapping("/")
-    public List<App> findAllApp() {
+    @RequestMapping("")
+    public List<AppVo> findAllApp() {
         return appService.findAll();
     }
 

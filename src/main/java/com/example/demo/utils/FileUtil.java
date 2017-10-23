@@ -18,12 +18,9 @@ public class FileUtil {
      * @return
      */
     public static String upload(MultipartFile file, String filePath) {
-        String path = "src/main/resources/static/";//上传路径
-        String path1="upload/";
-        filePath =path+path1;
         File targetFile = new File(filePath);
         //文件保存路径
-        String uploadPath = null;
+        String uploadFileName = null;
         if (!targetFile.exists()) {
             targetFile.mkdirs();
         }
@@ -32,17 +29,18 @@ public class FileUtil {
             // 这里只是简单例子，文件直接输出到项目路径下。
             // 实际项目中，文件需要输出到指定位置，需要在增加代码处理。
             // 还有关于文件格式限制、文件大小限制，详见：中配置
-            out = new FileOutputStream(filePath + file.getOriginalFilename());
+            uploadFileName = getFileNameByTime(file.getOriginalFilename());
+            out = new FileOutputStream(filePath + uploadFileName);
             out.write(file.getBytes());
             out.flush();
             out.close();
-            uploadPath = path1 + file.getOriginalFilename();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            uploadPath = null;
+            uploadFileName = null;
         } catch (IOException e) {
             e.printStackTrace();
-            uploadPath = null;
+            uploadFileName = null;
         } finally {
             if (out != null) {
                 try {
@@ -51,7 +49,45 @@ public class FileUtil {
                     e.printStackTrace();
                 }
             }
-            return uploadPath;
         }
+        return uploadFileName;
     }
+
+    /**
+     *
+     * @param fileName 文件名
+     * @return 带时间后缀的文件名
+     */
+    private static String  getFileNameByTime(String fileName){
+       return getFileName(fileName)+"_"+ System.currentTimeMillis()+"."+getExtension(fileName);
+    }
+    /**
+     * @param name 文件名
+     * @return 文件类型后缀
+     */
+    private static String getExtension(String name){
+        String suffix= "";
+        int idx = name.lastIndexOf('.');
+        if (idx>0){
+            suffix = name.substring(idx+1);
+        }
+        return suffix;
+    }
+
+    /**
+     *
+     * @param fileFullName 带后缀的文件名
+     * @return 文件名
+     */
+    private static String getFileName(String fileFullName){
+        String name;
+        int idx = fileFullName.lastIndexOf('.');
+        if (idx>0){
+            name = fileFullName.substring(0,idx);
+        }else {
+            name = fileFullName;
+        }
+        return name;
+    }
+
 }

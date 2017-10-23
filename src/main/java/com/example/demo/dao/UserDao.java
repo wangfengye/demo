@@ -1,6 +1,6 @@
 package com.example.demo.dao;
 
-import com.example.demo.bean.dataObject.User;
+import com.example.demo.bean.database.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

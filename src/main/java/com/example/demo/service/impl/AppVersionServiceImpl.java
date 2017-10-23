@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.bean.dataObject.App;
-import com.example.demo.bean.dataObject.AppVersion;
+import com.example.demo.bean.database.App;
+import com.example.demo.bean.database.AppVersion;
 import com.example.demo.dao.AppDao;
 import com.example.demo.dao.AppVersionDao;
 import com.example.demo.service.AppVersionService;

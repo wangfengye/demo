@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.bean.dataObject.App;
+import com.example.demo.bean.database.App;
+import com.example.demo.bean.vo.AppVo;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface AppService {
 
-    List<App> findAll();
+    List<AppVo> findAll();
     App findByName(String name);
     Boolean saveApp(String name,String version,Integer code, String apkUrl, String desc, String updateDate);
 }
