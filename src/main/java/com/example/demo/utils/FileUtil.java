@@ -8,7 +8,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by lenovo on 2017/10/13.
+ * @author wangfeng
+ * @describe TODO
+ * @date 2017/10/23
  */
 public class FileUtil {
     /**

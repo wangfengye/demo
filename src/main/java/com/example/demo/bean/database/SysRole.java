@@ -10,13 +10,14 @@ import java.util.List;
 public class SysRole {
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
+    @Column(unique = true)
     private String role;
     private String description;
     /**
      * 是否可用,不可用不添加给用户
      */
-    private Boolean avaiable=Boolean.FALSE;
+    private Boolean available=Boolean.FALSE;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="SysRolePermission",joinColumns={@JoinColumn(name="roleId")},inverseJoinColumns={@JoinColumn(name="permissionId")})
     private List<SysPermission> permissions;
@@ -32,11 +33,11 @@ public class SysRole {
         this.users = users;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -57,11 +58,11 @@ public class SysRole {
     }
 
     public Boolean getAvaiable() {
-        return avaiable;
+        return available;
     }
 
-    public void setAvaiable(Boolean avaiable) {
-        this.avaiable = avaiable;
+    public void setAvailable(Boolean avaiable) {
+        this.available = available;
     }
 
     public List<SysPermission> getPermissions() {

@@ -10,7 +10,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Created by lenovo on 2017/10/12.
+ * 权限管理
+ * 配置访问所需权限如果在shiro配置文件中添加了filterChainDefinitionMap.put("/add", "roles[100002]，perms[权限添加]");
+ * 就说明访问/add这个链接必须要有“权限添加”这个权限和具有“100002”这个角色才可以访问。
+ *
+ * @author wangfeng
+ * @date  2017/10/12.
  */
 @Configuration
 public class ShiroConfig {
@@ -24,10 +29,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/", "anon");
         //配置退出过滤器,其中具体退出代码Shiro已经实现
         filterChainDefinitionMap.put("/logout", "logout");
-        //配置访问所需权限如果在shiro配置文件中添加了filterChainDefinitionMap.put("/add", "roles[100002]，perms[权限添加]");
-        // 就说明访问/add这个链接必须要有“权限添加”这个权限和具有“100002”这个角色才可以访问。
-
-        //authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
+        // authc所有url都必须认证通过才可以访问 anon所有url都都可以匿名访问
         filterChainDefinitionMap.put("/**", "anon");
         shiroFilterFactoryBean.setLoginUrl("/login");
         shiroFilterFactoryBean.setSuccessUrl("/");

@@ -4,20 +4,22 @@ package com.example.demo.bean.response;
  * Created by lenovo on 2017/9/11.
  */
 public class ResponseDefault<T> {
-    private int code = 200;
+    private int status = 200;
     private String message ="success";
     private T data;
 
     public ResponseDefault(T data) {
         this.data = data;
     }
-
-    public int getCode() {
-        return code;
+    public ResponseDefault() {
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getMessage() {

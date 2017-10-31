@@ -22,7 +22,7 @@ public class FileTransferController {
         String path = FileUtil.upload(file, mPath);
         ResponseDefault<String> responseDefault = new ResponseDefault<>(path);
         if (path == null || path.length() == 0) {
-            responseDefault.setCode(400);
+            responseDefault.setStatus(400);
             responseDefault.setMessage("failed");
         }
         return responseDefault;

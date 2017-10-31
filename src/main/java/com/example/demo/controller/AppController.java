@@ -28,7 +28,7 @@ public class AppController {
         return appService.findByName(name);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     ResponseDefault saveApp(@RequestParam String name,
                             @RequestParam String version,
                             @RequestParam int code,
@@ -38,7 +38,7 @@ public class AppController {
         Boolean isSuccess = appService.saveApp(name, version, code, apkUrl, desc, updateDate);
         ResponseDefault<String> responseDefault = new ResponseDefault<>(null);
         if (!isSuccess) {
-            responseDefault.setCode(400);
+            responseDefault.setStatus(400);
             responseDefault.setMessage("error");
         }
         return responseDefault;

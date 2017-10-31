@@ -59,7 +59,7 @@ public class WebFilter{
     }
 
     private Map<String, String> getHeaderInfo(HttpServletRequest request) {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>(5);
         Enumeration headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String key = (String) headerNames.nextElement();

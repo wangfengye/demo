@@ -12,62 +12,32 @@ import java.util.List;
 public class SysPermission implements Serializable {
     @Id
     @GeneratedValue
-    private Integer id;
-    private String name;
-    @Column(columnDefinition = "enum('menu','button')")
-    private String resourceType;
-    /**
-     * 上传路径
-     */
-    private String url;
+    private Long id;
+    private String description;
     /**
      * 权限字符集
      */
-
+    @Column(unique = true)
     private String permission;
-    /**
-     * 父编号
-     */
-    private Long parentId;
-    /**
-     * 父编号列表
-     */
-    private String parentIds;
     private Boolean available = Boolean.FALSE;
     @ManyToMany
     @JoinTable(name = "SysRolePermission", joinColumns = {@JoinColumn(name = "permissionId")}, inverseJoinColumns = {@JoinColumn(name = "roleId")})
     private List<SysRole> roles;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getResourceType() {
-        return resourceType;
-    }
-
-    public void setResourceType(String resourceType) {
-        this.resourceType = resourceType;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getPermission() {
@@ -76,22 +46,6 @@ public class SysPermission implements Serializable {
 
     public void setPermission(String permission) {
         this.permission = permission;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getParentIds() {
-        return parentIds;
-    }
-
-    public void setParentIds(String parentIds) {
-        this.parentIds = parentIds;
     }
 
     public Boolean getAvailable() {
