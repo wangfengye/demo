@@ -1,14 +1,21 @@
 package com.example.demo.bean.database;
 
-import javax.persistence.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by lenovo on 2017/10/12.
  * 权限表
  */
 @Entity
+@DynamicInsert
+@DynamicUpdate
 public class SysPermission implements Serializable {
     @Id
     @GeneratedValue
@@ -17,12 +24,9 @@ public class SysPermission implements Serializable {
     /**
      * 权限字符集
      */
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     private String permission;
     private Boolean available = Boolean.FALSE;
-    @ManyToMany
-    @JoinTable(name = "SysRolePermission", joinColumns = {@JoinColumn(name = "permissionId")}, inverseJoinColumns = {@JoinColumn(name = "roleId")})
-    private List<SysRole> roles;
 
     public Long getId() {
         return id;
@@ -56,11 +60,4 @@ public class SysPermission implements Serializable {
         this.available = available;
     }
 
-    public List<SysRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<SysRole> roles) {
-        this.roles = roles;
-    }
 }

@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.bean.database.User;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -9,6 +10,11 @@ import java.util.Set;
  * @date 2017/10/23
  */
 public interface UserService {
+    /**
+     * 所有用户
+     * @return List
+     */
+    List<User> findAll();
     /**
      * 创建用户
      * @param user 用户
@@ -22,6 +28,12 @@ public interface UserService {
      * @param newPassword 用户密码
      */
     void changePassword(Long userId,String newPassword);
+
+    /**
+     * 删除用户
+     * @param userId 用户id
+     */
+    void deleteUser(Long userId);
 
     /**
      * 添加 用户-角色关系

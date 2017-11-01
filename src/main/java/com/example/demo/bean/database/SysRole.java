@@ -11,7 +11,7 @@ public class SysRole {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     private String role;
     private String description;
     /**

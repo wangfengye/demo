@@ -18,7 +18,7 @@ import java.util.List;
  * @date 2017/10/31
  */
 @Service
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
     Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
     @Autowired
     SysRoleDao dao;
@@ -26,8 +26,23 @@ public class RoleServiceImpl implements RoleService{
     PermissionService permissionService;
 
     @Override
+    public List<SysRole> findAll() {
+        return dao.findAll();
+    }
+
+    @Override
+    public SysRole findOne(Long id) {
+        return dao.findOne(id);
+    }
+
+    @Override
     public SysRole createRole(SysRole role) {
         return dao.save(role);
+    }
+
+    @Override
+    public void deleteRole(Long id) {
+        dao.delete(id);
     }
 
     @Override
@@ -39,15 +54,15 @@ public class RoleServiceImpl implements RoleService{
     public void correlationPermissions(Long roleId, Long... permissionIds) {
         SysRole role = dao.findOne(roleId);
         List<SysPermission> permissions = role.getPermissions();
-        if(permissions == null){
+        if (permissions == null) {
             permissions = new ArrayList<>();
         }
         for (int i = 0; i < permissionIds.length; i++) {
             SysPermission permission = permissionService.findPermission(permissionIds[i]);
-            if (permission!=null&&!permissions.contains(permission)){
+            if (permission != null && !permissions.contains(permission)) {
                 permissions.add(permission);
                 logger.info("添加成功");
-            }else{
+            } else {
                 logger.info("重复权限");
             }
         }
@@ -59,14 +74,14 @@ public class RoleServiceImpl implements RoleService{
     public void unCorrelationPermissions(Long roleId, Long... permissionIds) {
         SysRole role = dao.findOne(roleId);
         List<SysPermission> permissions = role.getPermissions();
-        if(permissions == null){
+        if (permissions == null) {
             permissions = new ArrayList<>();
         }
         for (int i = 0; i < permissionIds.length; i++) {
             SysPermission permission = permissionService.findPermission(permissionIds[i]);
-            if (permission!=null&&!permissions.contains(permission)){
+            if (permission != null && !permissions.contains(permission)) {
                 logger.info("无此权限");
-            }else{
+            } else {
                 permissions.remove(permission);
                 logger.info("删除权限");
             }
