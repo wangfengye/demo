@@ -1,7 +1,7 @@
 package com.example.demo.bean.database;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by lenovo on 2017/9/15.
@@ -25,7 +25,7 @@ public class User {
     private byte state;
     @ManyToMany(fetch = FetchType.EAGER)//立即从数据库中进行加载数据
     @JoinTable(name = "SysUserRole",joinColumns = {@JoinColumn(name="uid")},inverseJoinColumns ={@JoinColumn(name = "roleId") })
-    private List<SysRole> roleList;
+    private Set<SysRole> roles;
 
     public String getAccount() {
         return account;
@@ -43,12 +43,12 @@ public class User {
         this.password = password;
     }
 
-    public List<SysRole> getRoleList() {
-        return roleList;
+    public Set<SysRole> getRoles() {
+        return roles;
     }
 
-    public void setRoleList(List<SysRole> roleList) {
-        this.roleList = roleList;
+    public void setRoles(Set<SysRole> roles) {
+        this.roles = roles;
     }
 
     public Long getId() {

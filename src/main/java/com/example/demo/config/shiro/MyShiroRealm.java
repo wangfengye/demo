@@ -34,10 +34,10 @@ public class MyShiroRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         Set<String> roleSet = new HashSet<>();
         Set<String> permissionSet = new HashSet<>();
-        List<SysRole> roleList = user.getRoleList();
+        Set<SysRole> roleList = user.getRoles();
         for (SysRole role : roleList) {
             roleSet.add(role.getRole());
-            List<SysPermission> permissions = role.getPermissions();
+            Set<SysPermission> permissions = role.getPermissions();
             for (SysPermission p : permissions) {
                 permissionSet.add(p.getPermission());
             }

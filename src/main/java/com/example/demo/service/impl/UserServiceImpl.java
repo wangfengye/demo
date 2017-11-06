@@ -9,7 +9,6 @@ import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,7 +20,7 @@ import java.util.Set;
  * @date 2017/10/23
  */
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
@@ -54,66 +53,53 @@ public class UserServiceImpl implements UserService{
     @Override
     public void correlationRoles(Long userId, Long... roleIds) {
         User user = userDao.findOne(userId);
-        List<SysRole> roles = user.getRoleList();
-        if (roles ==null){
-            roles = new ArrayList<>();
+        Set<SysRole> roles = user.getRoles();
+        if (roles == null){
+            roles = new HashSet<>();
         }
         for (int i = 0; i < roleIds.length; i++) {
             SysRole role = roleService.findOne(roleIds[i]);
-            if (role!=null && !roles.contains(role)){
-                roles.add(role);
-            }else {
-                // 已拥有此权限
-            }
+            roles.add(role);
         }
-        user.setRoleList(roles);
+        user.setRoles(roles);
         userDao.save(user);
     }
 
     @Override
     public void unCorrelationRoles(Long userId, Long... roleIds) {
         User user = userDao.findOne(userId);
-        List<SysRole> roles = user.getRoleList();
-        if (roles ==null){
-            roles = new ArrayList<>();
-        }
         for (int i = 0; i < roleIds.length; i++) {
-            SysRole role = roleService.findOne(roleIds[i]);
-            if (role!=null && !roles.contains(role)){
-                // 无此权限
-            }else {
-                roles.remove(role);
-            }
+            SysRole role  =roleService.findOne(roleIds[i]);
+            user.getRoles().remove(role);
         }
-        user.setRoleList(roles);
         userDao.save(user);
     }
 
     @Override
     public User findByAccountAndPassword(String account, String password) {
-        return  userDao.findByAccountAndPassword(account,password);
+        return userDao.findByAccountAndPassword(account, password);
     }
 
     @Override
     public Set<String> findRoles(String account) {
+        Set<String> sets = new HashSet<>();
         User user = userDao.findByAccount(account);
-        Set<String> sets= new HashSet<>();
-        List<SysRole> roles = user.getRoleList();
-        for (int i = 0; i < roles.size(); i++) {
-            sets.add(roles.get(i).getRole());
+        Set<SysRole> roles = user.getRoles();
+        for (SysRole role : roles) {
+            sets.add(role.getRole());
         }
         return sets;
     }
 
     @Override
     public Set<String> findPermissions(String account) {
+        Set<String> sets = new HashSet<>();
         User user = userDao.findByAccount(account);
-        Set<String> sets= new HashSet<>();
-        List<SysRole> roles = user.getRoleList();
-        for (int i = 0; i < roles.size(); i++) {
-            List<SysPermission> permissions = roles.get(i).getPermissions();
-            for (int j = 0; j < permissions.size() ; j++) {
-                sets.add(permissions.get(j).getPermission());
+        Set<SysRole> roles = user.getRoles();
+        for (SysRole role : roles) {
+            Set<SysPermission> permissions = role.getPermissions();
+            for (SysPermission permisssion : permissions) {
+                sets.add(permisssion.getPermission());
             }
         }
         return sets;

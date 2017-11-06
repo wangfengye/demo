@@ -42,7 +42,7 @@ public class UserController {
 
     @DeleteMapping("/{userId}")
     @SuppressWarnings("unused")
-    ResponseDefault changePassword(@PathVariable Long userId) {
+    ResponseDefault deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return new ResponseDefault<>("success");
     }

@@ -10,8 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author wangfeng
@@ -52,19 +53,15 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void correlationPermissions(Long roleId, Long... permissionIds) {
+        logger.info("correlationPEr");
         SysRole role = dao.findOne(roleId);
-        List<SysPermission> permissions = role.getPermissions();
-        if (permissions == null) {
-            permissions = new ArrayList<>();
+        Set<SysPermission> permissions = role.getPermissions();
+        if (permissions == null){
+            permissions = new HashSet<>();
         }
         for (int i = 0; i < permissionIds.length; i++) {
             SysPermission permission = permissionService.findPermission(permissionIds[i]);
-            if (permission != null && !permissions.contains(permission)) {
-                permissions.add(permission);
-                logger.info("添加成功");
-            } else {
-                logger.info("重复权限");
-            }
+            permissions.add(permission);
         }
         role.setPermissions(permissions);
         dao.save(role);
@@ -73,20 +70,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void unCorrelationPermissions(Long roleId, Long... permissionIds) {
         SysRole role = dao.findOne(roleId);
-        List<SysPermission> permissions = role.getPermissions();
-        if (permissions == null) {
-            permissions = new ArrayList<>();
-        }
         for (int i = 0; i < permissionIds.length; i++) {
             SysPermission permission = permissionService.findPermission(permissionIds[i]);
-            if (permission != null && !permissions.contains(permission)) {
-                logger.info("无此权限");
-            } else {
-                permissions.remove(permission);
-                logger.info("删除权限");
-            }
+            role.getPermissions().remove(permission);
         }
-        role.setPermissions(permissions);
         dao.save(role);
     }
 }

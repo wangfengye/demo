@@ -1,7 +1,7 @@
 package com.example.demo.bean.database;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by lenovo on 2017/10/12.
@@ -18,20 +18,14 @@ public class SysRole {
      * 是否可用,不可用不添加给用户
      */
     private Boolean available=Boolean.FALSE;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="SysRolePermission",joinColumns={@JoinColumn(name="roleId")},inverseJoinColumns={@JoinColumn(name="permissionId")})
-    private List<SysPermission> permissions;
-    @ManyToMany
-    @JoinTable(name="SysUserRole",joinColumns={@JoinColumn(name="roleId")},inverseJoinColumns={@JoinColumn(name="uid")})
-    private List<User> users;
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
+    private Set<SysPermission> permissions;
+    /**
+     * roles user表使用的字段名
+     */
+    @ManyToMany(mappedBy = "roles")
+    // private Set<User> users;
 
     public Long getId() {
         return id;
@@ -57,19 +51,20 @@ public class SysRole {
         this.description = description;
     }
 
-    public Boolean getAvaiable() {
+    public Boolean getAvailable() {
         return available;
     }
 
-    public void setAvailable(Boolean avaiable) {
+    public void setAvailable(Boolean available) {
         this.available = available;
     }
 
-    public List<SysPermission> getPermissions() {
+    public Set<SysPermission> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(List<SysPermission> permissions) {
+    public void setPermissions(Set<SysPermission> permissions) {
         this.permissions = permissions;
     }
+
 }
