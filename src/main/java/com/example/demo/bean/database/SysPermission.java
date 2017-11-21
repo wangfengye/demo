@@ -1,18 +1,15 @@
 package com.example.demo.bean.database;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by lenovo on 2017/10/12.
  * 权限表
+ *
+ * @author 王枫
+ * @date 2017/9/15
  */
 @Entity
-@DynamicInsert
-@DynamicUpdate
 public class SysPermission implements Serializable {
     @Id
     @GeneratedValue
@@ -21,9 +18,10 @@ public class SysPermission implements Serializable {
     /**
      * 权限字符集
      */
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String permission;
     private Boolean available = Boolean.FALSE;
+
     @ManyToMany(mappedBy = "permissions")
     // private Set<SysRole> roles;
 
@@ -57,5 +55,38 @@ public class SysPermission implements Serializable {
 
     public void setAvailable(Boolean available) {
         this.available = available;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SysPermission)) {
+            return false;
+        }
+
+        SysPermission that = (SysPermission) o;
+
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) {
+            return false;
+        }
+        if (getDescription() != null ? !getDescription().equals(that.getDescription()) : that.getDescription() != null) {
+            return false;
+        }
+        if (getPermission() != null ? !getPermission().equals(that.getPermission()) : that.getPermission() != null) {
+            return false;
+        }
+        return !(getAvailable() != null ? !getAvailable().equals(that.getAvailable()) : that.getAvailable() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+        result = 31 * result + (getPermission() != null ? getPermission().hashCode() : 0);
+        result = 31 * result + (getAvailable() != null ? getAvailable().hashCode() : 0);
+        return result;
     }
 }

@@ -14,10 +14,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 过滤器(跨域处理)
+ * @author wangfeng
  * Created by lenovo on 2017/10/19.
  */
 
 @Configuration
+@SuppressWarnings("unused")
 public class WebFilter{
     @Bean
     public RemoteIpFilter remoteIpFilter(){
@@ -45,6 +48,7 @@ public class WebFilter{
             HttpServletRequest request = (HttpServletRequest) servletRequest;
             //getHeaderInfo(request);
             HttpServletResponse response = (HttpServletResponse) servletResponse;
+            // 跨域处理
             response.addHeader("Access-Control-Allow-Origin", "*");
             filterChain.doFilter(servletRequest, servletResponse);
         }

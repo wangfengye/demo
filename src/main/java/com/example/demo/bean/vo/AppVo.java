@@ -3,12 +3,13 @@ package com.example.demo.bean.vo;
 import com.example.demo.bean.database.App;
 
 /**
+ * @author wangfeng
  * Created by lenovo on 2017/9/11.
  */
 public class AppVo extends App {
     String version;
     String apkUrl;
-
+    @SuppressWarnings("unused")
     public String getApkUrl() {
         return apkUrl;
     }

@@ -1,6 +1,7 @@
 package com.example.demo.bean.response;
 
 /**
+ * @author wangfeng
  * Created by lenovo on 2017/9/11.
  */
 public class ResponseDefault<T> {

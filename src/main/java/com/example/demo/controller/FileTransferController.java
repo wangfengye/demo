@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Created by lenovo on 2017/10/13.
  * 文件传输
+ * @author wangfeng
+ * Created by lenovo on 2017/10/13.
  */
 @RestController
 @RequestMapping("/file")
@@ -18,6 +19,7 @@ public class FileTransferController {
 
     @ResponseBody
     @PostMapping("/upload")
+    @SuppressWarnings("unused")
     ResponseDefault<String> upload(@RequestParam("file") MultipartFile file) {
         String path = FileUtil.upload(file, mPath);
         ResponseDefault<String> responseDefault = new ResponseDefault<>(path);

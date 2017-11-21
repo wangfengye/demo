@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * @author wangfeng
  * Created by lenovo on 2017/10/13.
  */
 @RestController
@@ -20,6 +21,7 @@ public class LoginController {
     @Autowired
     UserService service;
     @PostMapping("")
+    @SuppressWarnings("unused")
     ResponseDefault<String> logIn (String username, String password){
         ResponseDefault responseDefault =new ResponseDefault<>();
         try {

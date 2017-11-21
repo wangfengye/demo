@@ -4,6 +4,7 @@ import com.example.demo.bean.database.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
+ * @author wangfeng
  * Created by lenovo on 2017/10/12.
  */
 public interface UserDao extends JpaRepository<User,Long>{

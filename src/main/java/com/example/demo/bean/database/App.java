@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
+ * @author  wanfeng
  * Created by lenovo on 2017/9/11.
  */
 @Entity(name = "app_main")
@@ -15,12 +16,12 @@ public class App {
     public Long id;
     //apk name
     @Column(nullable = false, unique = true)
-     public String name;
+    public String name;
     //last version
 
-     public int lastCode;
+    public int lastCode;
     @Column(name = "app_desc")
-     public String desc;
+    public String desc;
 
     public String getDesc() {
         return desc;
@@ -52,6 +53,39 @@ public class App {
 
     public void setLastCode(int lastCode) {
         this.lastCode = lastCode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof App)) {
+            return false;
+        }
+
+        App app = (App) o;
+
+        if (getLastCode() != app.getLastCode()) {
+            return false;
+        }
+        if (getId() != null ? !getId().equals(app.getId()) : app.getId() != null) {
+            return false;
+        }
+        if (getName() != null ? !getName().equals(app.getName()) : app.getName() != null) {
+            return false;
+        }
+        return !(getDesc() != null ? !getDesc().equals(app.getDesc()) : app.getDesc() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + getLastCode();
+        result = 31 * result + (getDesc() != null ? getDesc().hashCode() : 0);
+        return result;
     }
 }
 

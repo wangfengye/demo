@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
+ * @author wangfeng
  * Created by lenovo on 2017/10/13.
  */
 @RestController
@@ -20,6 +21,7 @@ public class AppVersionController {
     AppVersionService appVersionService;
 
     @GetMapping("/{name}")
+    @SuppressWarnings("unused")
     List<AppVersion> findByName(@PathVariable String name){
         return  appVersionService.findByName(name);
     }

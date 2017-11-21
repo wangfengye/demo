@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
+ * @author wangfeng
  * Created by lenovo on 2017/10/13.
  */
 @RestController
@@ -29,7 +30,8 @@ public class AppController {
     }
 
     @PostMapping("")
-    ResponseDefault saveApp(@RequestParam String name,
+    @SuppressWarnings("unused")
+    public ResponseDefault saveApp(@RequestParam String name,
                             @RequestParam String version,
                             @RequestParam int code,
                             @RequestParam String apkUrl,

@@ -4,15 +4,17 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Created by lenovo on 2017/9/15.
  * 用户表
+ *
+ * @author wangfeng
+ * @date 2017/9/15
  */
 @Entity
 public class User {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String account;
     private String password;
     /**
@@ -24,7 +26,7 @@ public class User {
      */
     private byte state;
     @ManyToMany(fetch = FetchType.EAGER)//立即从数据库中进行加载数据
-    @JoinTable(name = "SysUserRole",joinColumns = {@JoinColumn(name="uid")},inverseJoinColumns ={@JoinColumn(name = "roleId") })
+    @JoinTable(name = "SysUserRole", joinColumns = {@JoinColumn(name = "uid")}, inverseJoinColumns = {@JoinColumn(name = "roleId")})
     private Set<SysRole> roles;
 
     public String getAccount() {
@@ -90,5 +92,46 @@ public class User {
                 ", account='" + account + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
+
+        User user = (User) o;
+
+        if (getState() != user.getState()) {
+            return false;
+        }
+        if (getId() != null ? !getId().equals(user.getId()) : user.getId() != null) {
+            return false;
+        }
+        if (getAccount() != null ? !getAccount().equals(user.getAccount()) : user.getAccount() != null) {
+            return false;
+        }
+        if (getPassword() != null ? !getPassword().equals(user.getPassword()) : user.getPassword() != null) {
+            return false;
+        }
+        if (getSalt() != null ? !getSalt().equals(user.getSalt()) : user.getSalt() != null) {
+            return false;
+        }
+        return !(getRoles() != null ? !getRoles().equals(user.getRoles()) : user.getRoles() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getAccount() != null ? getAccount().hashCode() : 0);
+        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
+        result = 31 * result + (getSalt() != null ? getSalt().hashCode() : 0);
+        result = 31 * result + (int) getState();
+        result = 31 * result + (getRoles() != null ? getRoles().hashCode() : 0);
+        return result;
     }
 }

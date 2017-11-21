@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 
 /**
  * 入口类
+ *
+ * @author wangfeng
  */
 @Controller
 @EnableAutoConfiguration

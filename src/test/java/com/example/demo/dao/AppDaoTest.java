@@ -1,6 +1,5 @@
 package com.example.demo.dao;
 
-import com.example.demo.bean.database.App;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,9 +11,7 @@ public class AppDaoTest {
     private AppDao dao;
     @Test
     public void testFindByName(){
-        String name ="ww";
-       App app = dao.findByName(name);
-        System.out.println(app.toString());
+
     }
 
 }

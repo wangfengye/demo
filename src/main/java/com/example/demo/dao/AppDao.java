@@ -4,8 +4,15 @@ import com.example.demo.bean.database.App;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * Created by lenovo on 2017/9/11.
+ *
+ * @author wangfeng
+ * @date 2016/10/31
  */
 public interface AppDao extends JpaRepository<App,Long> {
+   /**
+    * find app by app name
+    * @param name app名称
+    * @return app object
+     */
    App findByName(String name);
 }
