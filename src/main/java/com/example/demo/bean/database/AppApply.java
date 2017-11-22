@@ -23,7 +23,7 @@ public class AppApply {
     public AppApply() {
     }
 
-    public AppApply(String user, String desc, String applyDate, String imei) {
+    public AppApply(String user, String desc, String imei, String applyDate) {
         this.user = user;
         this.desc = desc;
         this.applyDate = applyDate;

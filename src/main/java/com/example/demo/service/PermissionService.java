@@ -5,8 +5,7 @@ import com.example.demo.bean.database.SysPermission;
 import java.util.List;
 
 /**
- * @author wangfeng
- * @date 2017/10/31
+ * @author wangfeng on 2017/10/31
  */
 public interface PermissionService {
     /**
@@ -32,6 +31,7 @@ public interface PermissionService {
      * 删除权限
      * @param permission SysPermission
      */
+    @SuppressWarnings("unused")
     void deletePermission(SysPermission permission);
 
     /**

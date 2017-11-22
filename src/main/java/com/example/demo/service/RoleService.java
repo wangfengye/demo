@@ -17,7 +17,7 @@ public interface RoleService {
     /**
      *  查找角色
      * @param id 角色id
-     * @return
+     * @return SysROle
      */
     SysRole findOne(Long id);
     /**
