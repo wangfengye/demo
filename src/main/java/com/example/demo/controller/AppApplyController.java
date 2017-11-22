@@ -25,8 +25,8 @@ public class AppApplyController {
 
     @PostMapping("")
     @SuppressWarnings("unused")
-    String saveAppApply(@RequestParam String userName, String desc, String imei){
-        service.saveApply(userName,desc,imei);
+    String saveAppApply(@RequestParam String userName, String desc, String imei, String applyDate){
+        service.saveApply(userName,desc,imei, applyDate);
         // 申请成功返回 密码
         return Tea.createKey(imei);
     }

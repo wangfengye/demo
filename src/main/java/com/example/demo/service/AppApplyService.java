@@ -17,9 +17,10 @@ public interface AppApplyService {
 
     /**
      * save apply
-     * @param userName
-     * @param desc
-     * @param imei
+     * @param userName  用户名
+     * @param desc 详情
+     * @param imei 手机串号
+     * @param  applyDate 申请日期
      */
-    void saveApply(String userName, String desc, String imei);
+    void saveApply(String userName, String desc, String imei, String applyDate);
 }

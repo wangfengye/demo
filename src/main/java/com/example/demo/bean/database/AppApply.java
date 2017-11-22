@@ -17,7 +17,18 @@ public class AppApply {
     private String user;
     @Column(name = "app_apply_desc")
     private String desc;
+    private String applyDate;
     private String imei;
+
+    public AppApply() {
+    }
+
+    public AppApply(String user, String desc, String applyDate, String imei) {
+        this.user = user;
+        this.desc = desc;
+        this.applyDate = applyDate;
+        this.imei = imei;
+    }
 
     public String getImei() {
         return imei;
@@ -49,5 +60,13 @@ public class AppApply {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getApplyDate() {
+        return applyDate;
+    }
+
+    public void setApplyDate(String applyDate) {
+        this.applyDate = applyDate;
     }
 }
