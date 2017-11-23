@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.bean.database.AppApply;
 import com.example.demo.service.AppApplyService;
 import com.example.demo.utils.Tea;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +18,11 @@ import java.util.List;
 public class AppApplyController {
     @Autowired
     AppApplyService service;
+
     @GetMapping("")
+    @RequiresRoles(value={"admin"})
     @SuppressWarnings("unused")
-    List<AppApply> findAll(){
+    public List<AppApply> findAll(){
         return service.findAll();
     }
 

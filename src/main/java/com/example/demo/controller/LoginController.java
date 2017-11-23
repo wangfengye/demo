@@ -6,6 +6,7 @@ import com.example.demo.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,10 +38,15 @@ public class LoginController {
     }
     @RequestMapping("/403")
     String fail(){
-        return "error/403";
+        return "403";
     }
     @RequestMapping("out")
     String logout(){
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.isAuthenticated()) {
+            // session 会销毁，在SessionListener监听session销毁，清理权限缓存
+            subject.logout();
+        }
         return "logout";
     }
 }

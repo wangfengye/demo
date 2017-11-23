@@ -25,8 +25,8 @@ public class MyShiroRealm extends AuthorizingRealm {
     /**
      * 授权
      *
-     * @param principalCollection
-     * @return
+     * @param principalCollection principalCollection
+     * @return info
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -50,8 +50,8 @@ public class MyShiroRealm extends AuthorizingRealm {
     /**
      * 身份认证
      *
-     * @param authToken
-     * @return
+     * @param authToken token
+     * @return 身份信息
      * @throws AuthenticationException
      */
     @Override
