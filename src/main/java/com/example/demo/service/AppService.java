@@ -17,6 +17,13 @@ public interface AppService {
     List<AppVo> findAll();
 
     /**
+     * find
+     * @param id id
+     * @return app
+     */
+    App findById(Long id);
+
+    /**
      * find app by name
      * @param name app name
      * @return app
@@ -34,4 +41,17 @@ public interface AppService {
      * @return success or error
      */
     Boolean saveApp(String name,String version,Integer code, String apkUrl, String desc, String updateDate);
+
+    /**
+     * delete app
+     * @param id id
+     */
+    void deleteById(Long id);
+
+    /**
+     *  change Last code when delete version
+     * @param id id
+     * @param code last code
+     */
+    void changeLastCode(Long id, int code);
 }

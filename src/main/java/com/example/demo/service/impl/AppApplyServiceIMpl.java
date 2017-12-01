@@ -29,4 +29,9 @@ public class AppApplyServiceImpl implements AppApplyService{
         AppApply appApply = new AppApply(userName, desc, imei, applyDate);
         dao.save(appApply);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        dao.delete(id);
+    }
 }

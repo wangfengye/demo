@@ -1,9 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.bean.database.AppApply;
+import com.example.demo.bean.response.ResponseDefault;
 import com.example.demo.service.AppApplyService;
 import com.example.demo.utils.Tea;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ public class AppApplyController {
     AppApplyService service;
 
     @GetMapping("")
-    @RequiresRoles(value={"admin"})
+    // @RequiresRoles(value={"admin"})
     @SuppressWarnings("unused")
     public List<AppApply> findAll(){
         return service.findAll();
@@ -32,5 +32,11 @@ public class AppApplyController {
         service.saveApply(userName,desc,imei, applyDate);
         // 申请成功返回 密码
         return Tea.createKey(imei);
+    }
+    @DeleteMapping("/{id}")
+    @SuppressWarnings("unused")
+    ResponseDefault deleteById(@PathVariable Long id){
+        service.deleteById(id);
+        return new ResponseDefault<>("success");
     }
 }

@@ -15,4 +15,37 @@ public interface AppVersionService {
      * @return appVersions
      */
     List<AppVersion> findByName(String name);
+
+    /**
+     *  find by id
+     * @param id id
+     * @return AppVersion
+     */
+    AppVersion findById(Long id);
+
+    /**
+     * find by appId, code
+     * @param appId APP id
+     * @param code inside code
+     * @return appVersion
+     */
+    AppVersion findByAppIdAndCode(Long appId,int code);
+
+    /**
+     *  delete by id
+     * @param id id
+     */
+    void deleteById(Long id);
+
+    /**
+     * delete by app id
+     * @param id app id
+     */
+    void deleteByAppId(Long id);
+
+    /**
+     *  save appVersion
+     * @param appVersion appVersion
+     */
+    void save(AppVersion appVersion);
 }

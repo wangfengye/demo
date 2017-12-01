@@ -4,8 +4,8 @@ import com.example.demo.bean.database.App;
 import com.example.demo.bean.database.AppVersion;
 import com.example.demo.bean.vo.AppVo;
 import com.example.demo.dao.AppDao;
-import com.example.demo.dao.AppVersionDao;
 import com.example.demo.service.AppService;
+import com.example.demo.service.AppVersionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class AppServiceImpl implements AppService {
     @Autowired
-    private AppVersionDao appVersionDao;
+    private AppVersionService appVersionService;
     @Autowired
     private AppDao appDao;
 
@@ -29,12 +29,17 @@ public class AppServiceImpl implements AppService {
         List<AppVo> appVos = new ArrayList<>();
         for (App app : apps) {
             AppVo appVo = new AppVo().clone(app);
-            AppVersion appVersion = appVersionDao.findByAppIdAndCode(app.getId(), app.getLastCode());
+            AppVersion appVersion = appVersionService.findByAppIdAndCode(app.getId(),app.getLastCode());
             appVo.setVersion(appVersion.getVersion());
             appVo.setApkUrl(appVersion.getApkUrl());
             appVos.add(appVo);
         }
         return appVos;
+    }
+
+    @Override
+    public App findById(Long id) {
+        return appDao.findOne(id);
     }
 
     @Override
@@ -65,8 +70,22 @@ public class AppServiceImpl implements AppService {
         appVersion.setApkUrl(apkUrl);
         appVersion.setDesc(desc);
         appVersion.setUpdateDate(updateDate);
-        appVersionDao.save(appVersion);
+        appVersionService.save(appVersion);
         return true;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        // delete related history
+        appVersionService.deleteByAppId(id);
+        appDao.delete(id);
+    }
+
+    @Override
+    public void changeLastCode(Long id, int code) {
+        App app = appDao.findOne(id);
+        app.setLastCode(code);
+        appDao.save(app);
     }
 
 

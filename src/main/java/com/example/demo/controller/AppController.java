@@ -45,4 +45,10 @@ public class AppController {
         }
         return responseDefault;
     }
+    @DeleteMapping("/{id}")
+    @SuppressWarnings("unused")
+    ResponseDefault deleteById(@PathVariable Long id){
+        appService.deleteById(id);
+        return new ResponseDefault<>("success");
+    }
 }

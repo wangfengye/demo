@@ -23,4 +23,10 @@ public interface AppApplyService {
      * @param  applyDate 申请日期
      */
     void saveApply(String userName, String desc, String imei, String applyDate);
+
+    /**
+     *  delete apply
+     * @param id database id
+     */
+    void deleteById(Long id);
 }
